@@ -5,7 +5,7 @@
 int main()
 {
 	std::vector<cluster_elem> data = read_fisher_iris();
-	som map(data.size()/10, 4, data, 13);
+	som map(data.size()/3, 4, data, 13);
 	std::vector<std::vector<const cluster_elem*>> clusters = map.clustering(data);
 
 	for (int i = 0; i < clusters.size(); ++i)

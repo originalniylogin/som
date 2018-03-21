@@ -8,23 +8,19 @@ double som::euclidian_distance(const std::vector<double>& vec1, const std::vecto
 	return sqrt(distance);
 }
 
+double som::mahalanobis_distance(std::vector<const cluster_elem>& cluster1, std::vector<double> center2)
+{
+	return 0;
+}
+
 double som::cluster_radius(std::vector<const cluster_elem*>& cluster, std::vector<double> center)
 {
-	std::vector<double> dispersion(_dim, 0);
+	double dispersion = 0;
 	for (int i = 0; i < cluster.size(); ++i)
-	{
-		std::vector<double> cluster_elem = cluster[i]->get_data();
-		for (int j = 0; j < cluster_elem.size(); ++j)
-		{
-			double dif = cluster_elem[j] - center[j];
-			dispersion[j] += dif*dif;
-		}
-	}
+		dispersion += euclidian_distance(cluster[i]->get_data(), center);
+	dispersion /= cluster.size();
 
-	for (int k = 0; k < _dim; ++k)
-		dispersion[k] /= cluster.size();
-
-	return  euclidian_distance(std::vector<double>(_dim, 0), dispersion);
+	return  2*dispersion;
 }
 
 std::vector<double> som::cluster_center(std::vector<const cluster_elem*>& cluster)
